@@ -1,12 +1,29 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 export default function Registration() {
   // useState()を用いて、ユーザーデータの初期値（空の文字列）を定義する。
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const handleSubmit = (event) => {
-    console.log("イベント発火")
+    const data = {
+      "user": {
+        "email": email, "password": password
+      }
+    }
+    //追加
+    axios.post("http://localhost:3000/v1/users/", data,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    },
+    { withCredentials: true }
+    ).then(response => {
+      console.log("registration res", response)
+    }).catch(error => {
+      console.log("registration error", error)
+    })
     event.preventDefault()
   }
   return (
@@ -25,12 +42,6 @@ export default function Registration() {
                placeholder="パスワード"
                value={password}
                onChange={event => setPassword(event.target.value)}
-        />
-        <input type="password"
-               name="password_confirmation"
-               placeholder="確認用パスワード"
-               value={passwordConfirmation}
-               onChange={event => setPasswordConfirmation(event.target.value)}
         />
         <button type="submit">登録</button>
       </form>
