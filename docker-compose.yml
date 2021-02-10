@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/usr/src/app
+    # command: sh -c "cd react-basic_drf && yarn start"
+    ports:
+      - "3001:3001"
