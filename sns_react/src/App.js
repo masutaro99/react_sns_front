@@ -7,6 +7,7 @@ import indigo from "@material-ui/core/colors/indigo"
 
 import Home from "./components/Home"
 import Dashboard from "./components/Dashboard"
+import Navbar from "./components/Navbar"
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +24,7 @@ const theme = createMuiTheme({
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
+    <Navbar />
     <div className="App">
       <header className="App-header">
       <BrowserRouter>
