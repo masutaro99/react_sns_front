@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {START_FETCH, FETCH_SUCCESS, ERROR_CATCHED, INPUT_EDIT, TOGGLE_MODE} from './actionTypes';
+import { Input } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,9 +45,63 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const initialState = {
+  isLoading: false,
+  isLoginView: true,
+  error: '',
+  credentialsLog: {
+    email: '',
+    password: ''
+  },
+  credentialsReg: {
+    email: '',
+    password: ''
+  }
+};
+
+const loginReducer = (state, action) => {
+  switch (action.type) {
+    case START_FETCH: {
+      return {
+        ...state,
+        isLoading: true,
+      }
+    }
+    case FETCH_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      }
+    }
+    case ERROR_CATCHED: {
+      return {
+        ...state,
+        error: 'Email or password is not correct!',
+        isLoading: false
+      }
+    }
+    case INPUT_EDIT: {
+      return {
+        ...state,
+        [action.inputName]: action.payload,
+        error: '',
+      }
+    }
+    case TOGGLE_MODE: {
+      return {
+        ...state,
+        isLoginView: !state.isLoginView,
+      }
+    }
+    default:
+      return state;
+  }
+}
+
 
 const Login = () => {
   const classes = useStyles();
+  const [state, dispatch] = useReducer(loginReducer, initialState);
   return (
     <div>
       <h3>login</h3>
