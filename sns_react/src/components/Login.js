@@ -112,7 +112,7 @@ const Login = (props) => {
     cred[event.target.name] = event.target.value;
     dispatch({
       type: INPUT_EDIT,
-      inputName: "state.creditialLog",
+      inputName: "state.credentialLog",
       payload: cred,
     });
   };
@@ -122,7 +122,7 @@ const Login = (props) => {
     cred[event.target.name] = event.target.value;
     dispatch({
       type: INPUT_EDIT,
-      inputName: "state.creditialReg",
+      inputName: "state.credentialReg",
       payload: cred,
     });
   };
@@ -188,6 +188,7 @@ const Login = (props) => {
               margin="normal"
               fullWidth
               label="Email"
+              name="email"
               value={state.credentialsLog.email}
               onChange={inputChangedLog()}
               autoFocus
@@ -198,6 +199,7 @@ const Login = (props) => {
               margin="normal"
               fullWidth
               label="Email"
+              name="email"
               value={state.credentialsLog.email}
               onChange={inputChangedReg()}
               autoFocus
@@ -210,6 +212,7 @@ const Login = (props) => {
               fullWidth
               label="password"
               type="password"
+              name="password"
               value={state.credentialsLog.password}
               onChange={inputChangedLog()}
             />
@@ -220,13 +223,14 @@ const Login = (props) => {
               fullWidth
               label="password"
               type="password"
+              name="password"
               value={state.credentialsLog.password}
               onChange={inputChangedReg()}
             />
           )}
           <span className={classes.spanError}>{state.error}</span>
           {state.isLoginView ? (
-            !state.credentialsLog.password || !state.credentialsLog.username ? (
+            !state.credentialsLog.password || !state.credentialsLog.email ? (
               <Button
                 className={classes.submit}
                 type="submit"
@@ -245,8 +249,7 @@ const Login = (props) => {
                 color="primary"
               ></Button>
             )
-          ) : !state.credentialsLog.password ||
-            !state.credentialsLog.username ? (
+          ) : !state.credentialsLog.password || !state.credentialsLog.email ? (
             <Button
               className={classes.submit}
               type="submit"
