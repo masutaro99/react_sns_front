@@ -5,9 +5,8 @@ import { createMuiTheme } from "@material-ui/core/styles"
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles"
 import indigo from "@material-ui/core/colors/indigo"
 
-import Home from "./components/Home"
-import Dashboard from "./components/Dashboard"
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
+import Registration from "./components/auth/Registration";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,12 +26,10 @@ function App() {
     <Navbar />
     <div className="App">
       <header className="App-header">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={"/"} component={Home} />
-          <Route exact path={"/dashboard"} component={Dashboard} />
-        </Switch>
-      </BrowserRouter>
+        <div>
+          <h1>Home</h1>
+           <Registration />
+        </div>
       </header>
     </div>
     </MuiThemeProvider>
