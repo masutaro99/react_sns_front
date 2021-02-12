@@ -1,9 +1,8 @@
 import './App.css';
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { createMuiTheme } from "@material-ui/core/styles"
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles"
-import indigo from "@material-ui/core/colors/indigo"
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import indigo from "@material-ui/core/colors/indigo";
 
 import Navbar from "./components/Navbar";
 import Registration from "./components/auth/Registration";
