@@ -1,46 +1,52 @@
-import React, {useReducer} from 'react';
-import { withCookies } from 'react-cookie';
-import axios from 'axios';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import {START_FETCH, FETCH_SUCCESS, ERROR_CATCHED, INPUT_EDIT, TOGGLE_MODE} from './actionTypes';
-import { Input } from '@material-ui/core';
+import React, { useReducer } from "react";
+import { withCookies } from "react-cookie";
+import axios from "axios";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {
+  START_FETCH,
+  FETCH_SUCCESS,
+  ERROR_CATCHED,
+  INPUT_EDIT,
+  TOGGLE_MODE,
+} from "./actionTypes";
+import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   span: {
-    color: 'teal',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    color: "teal",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   spanError: {
-    color: 'fuchsia',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    color: "fuchsia",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     margintop: 10,
   },
 }));
@@ -48,15 +54,15 @@ const useStyles = makeStyles((theme) => ({
 const initialState = {
   isLoading: false,
   isLoginView: true,
-  error: '',
+  error: "",
   credentialsLog: {
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   },
   credentialsReg: {
-    email: '',
-    password: ''
-  }
+    email: "",
+    password: "",
+  },
 };
 
 const loginReducer = (state, action) => {
@@ -65,39 +71,38 @@ const loginReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
-      }
+      };
     }
     case FETCH_SUCCESS: {
       return {
         ...state,
-        isLoading: false
-      }
+        isLoading: false,
+      };
     }
     case ERROR_CATCHED: {
       return {
         ...state,
-        error: 'Email or password is not correct!',
-        isLoading: false
-      }
+        error: "Email or password is not correct!",
+        isLoading: false,
+      };
     }
     case INPUT_EDIT: {
       return {
         ...state,
         [action.inputName]: action.payload,
-        error: '',
-      }
+        error: "",
+      };
     }
     case TOGGLE_MODE: {
       return {
         ...state,
         isLoginView: !state.isLoginView,
-      }
+      };
     }
     default:
       return state;
   }
-}
-
+};
 
 const Login = () => {
   const classes = useStyles();
@@ -106,7 +111,7 @@ const Login = () => {
     <div>
       <h3>login</h3>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
