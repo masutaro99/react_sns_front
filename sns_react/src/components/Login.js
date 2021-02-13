@@ -107,9 +107,11 @@ const Login = (props) => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
+  // フォームタグの中のtext areaに入力があった際に呼び出される、nameにどのフォームに入力しているか、valueにその時の値を格納している
   const inputChangedLog = () => (event) => {
     const cred = state.credentialsLog;
     cred[event.target.name] = event.target.value;
+    // 実際にstateを変更するのはdispatch内
     dispatch({
       type: INPUT_EDIT,
       inputName: "state.credentialLog",
@@ -120,6 +122,8 @@ const Login = (props) => {
   const inputChangedReg = () => (event) => {
     const cred = state.credentialsReg;
     cred[event.target.name] = event.target.value;
+    console.log(cred);
+    console.log(event.target);
     dispatch({
       type: INPUT_EDIT,
       inputName: "state.credentialReg",
@@ -129,21 +133,20 @@ const Login = (props) => {
 
   const login = async (event) => {
     event.preventDefault();
-    if (state.isLogView) {
+    if (state.isLoginView) {
       try {
         dispatch({ type: START_FETCH });
         console.log(state.credentialsLog);
-        // const res = await axios.post(
-        //   "http://127.0.0.0.0:3000/login",
-        //   state.credentialsLog,
-        //   {
-        //     headers: { "Content-Type": "application/json" },
-        //   }
-        // );
-        // props.cookies.set("current-token", res.data.token);
-        // res.data.token
-        //   ? (window.location.href = "/profiles")
-        //   : (window.location.href = "/");
+        const res = await axios.post(
+          `http://127.0.0.1:3000/v1/login/?email=${state.credentialsLog.email}&password=${state.credentialsLog.password}`,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        props.cookies.set("current-token", res.data.access_token);
+        res.data.access_token
+          ? (window.location.href = "/profiles")
+          : (window.location.href = "/");
         dispatch({ type: FETCH_SUCCESS });
       } catch {
         dispatch({ type: ERROR_CATCHED });
@@ -158,7 +161,6 @@ const Login = (props) => {
         //     headers: { "Content-Type": "application/json" },
         //   }
         // );
-        console.log(state.credentialsReg);
         dispatch({ type: FETCH_SUCCESS });
         dispatch({ type: TOGGLE_MODE });
       } catch {
@@ -200,7 +202,7 @@ const Login = (props) => {
               fullWidth
               label="Email"
               name="email"
-              value={state.credentialsLog.email}
+              value={state.credentialsReg.email}
               onChange={inputChangedReg()}
               autoFocus
             />
@@ -224,7 +226,7 @@ const Login = (props) => {
               label="password"
               type="password"
               name="password"
-              value={state.credentialsLog.password}
+              value={state.credentialsReg.password}
               onChange={inputChangedReg()}
             />
           )}
@@ -277,6 +279,10 @@ const Login = (props) => {
           <span onClick={() => toggleView()} className={classes.span}>
             {state.isLoginView ? "Create Account" : "Back to login ?"}
           </span>
+          <h1>email:{state.credentialsLog.email}</h1>
+          <h1>password:{state.credentialsLog.password}</h1>
+          <h1>email:{state.credentialsReg.email}</h1>
+          <h1>password:{state.credentialsReg.password}</h1>
         </div>
       </form>
     </Container>
