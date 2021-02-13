@@ -136,7 +136,6 @@ const Login = (props) => {
     if (state.isLoginView) {
       try {
         dispatch({ type: START_FETCH });
-        console.log(state.credentialsLog);
         const res = await axios.post(
           `http://127.0.0.1:3000/v1/login/?email=${state.credentialsLog.email}&password=${state.credentialsLog.password}`,
           {
@@ -154,13 +153,10 @@ const Login = (props) => {
     } else {
       try {
         dispatch({ type: START_FETCH });
-        // await axios.post(
-        //   "http://localhost:3000/v1/users/",
-        //   state.credentialsReg,
-        //   {
-        //     headers: { "Content-Type": "application/json" },
-        //   }
-        // );
+        const data = { user: state.credentialsReg };
+        await axios.post("http://127.0.0.1:3000/v1/users/", data, {
+          headers: { "Content-Type": "application/json" },
+        });
         dispatch({ type: FETCH_SUCCESS });
         dispatch({ type: TOGGLE_MODE });
       } catch {
