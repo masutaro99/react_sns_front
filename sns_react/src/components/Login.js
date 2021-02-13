@@ -238,18 +238,21 @@ const Login = (props) => {
                 disabled
                 variant="contained"
                 color="primary"
-              ></Button>
+              >
+                Login
+              </Button>
             ) : (
               <Button
                 className={classes.submit}
                 type="submit"
                 fullWidth
-                disabled
                 variant="contained"
                 color="primary"
-              ></Button>
+              >
+                Login
+              </Button>
             )
-          ) : !state.credentialsLog.password || !state.credentialsLog.email ? (
+          ) : !state.credentialsReg.password || !state.credentialsReg.email ? (
             <Button
               className={classes.submit}
               type="submit"
@@ -257,19 +260,22 @@ const Login = (props) => {
               disabled
               variant="contained"
               color="primary"
-            ></Button>
+            >
+              Register
+            </Button>
           ) : (
             <Button
               className={classes.submit}
               type="submit"
               fullWidth
-              disabled
               variant="contained"
               color="primary"
-            ></Button>
+            >
+              Register
+            </Button>
           )}
           <span onClick={() => toggleView()} className={classes.span}>
-            {state.isLoginView ? "Create Account" : "Back to lobin ?"}
+            {state.isLoginView ? "Create Account" : "Back to login ?"}
           </span>
         </div>
       </form>
