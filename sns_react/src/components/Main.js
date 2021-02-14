@@ -29,7 +29,7 @@ const Main = () => {
         <div className="app-profiles">{listProfiles}</div>
       </Grid>
       <Grid item xs={4}>
-        <div className="app-details"></div>
+        <div className="app-details">{profile}</div>
         <h3 className="title-ask">
           <BsFillPeopleFill className="badge" />
           Approval request list

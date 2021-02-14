@@ -29,7 +29,7 @@ const Profile = ({ profileData, askData }) => {
       />
       <CardContent sytle={{ padding: 5 }}>
         <Typography variant="h6">{profileData.nickName}</Typography>
-        <Typography>{profileData.created_on}</Typography>
+        <Typography>{profileData.created_at}</Typography>
         {!askData[0] && profile.id ? (
           <Button
             size="small"
