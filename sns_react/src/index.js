@@ -12,9 +12,9 @@ const routing = (
   <React.StrictMode>
     <BrowserRouter>
       <CookiesProvider>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/profiles" component={Dashboard} />
-        <Route exact path="/registration" component={App} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Dashboard} />
+        <Route exact path="/profiles" component={App} />
       </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>
