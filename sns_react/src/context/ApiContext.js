@@ -5,65 +5,84 @@ export const ApiContext = createContext();
 
 const ApiContextProvider = (props) => {
   const token = props.cookies.get("current-token");
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(0);
   const [profiles, setProfiles] = useState([]);
   const [editedProfile, setEditedProfile] = useState({ id: "", nickName: "" });
   const [askList, setAskList] = useState([]);
   // askListFullには自分宛ての友達申請も表示する
   const [askListFull, setAskListFull] = useState([]);
-  const [inbox, setInbox] = useState([]);
+  // const [inbox, setInbox] = useState([]);
   const [cover, setCover] = useState([]);
 
   useEffect(() => {
     const getMyprofile = async () => {
       try {
-        const resmy = await axios.get("http:127.0.0.1:3000/v1/mypage", {
+        const resmy = await axios.get("http://127.0.0.1:3000/v1/mypage/", {
           headers: {
+            "Content-Type": "application/json",
             Authorization: token,
           },
         });
-        const res = await axios.get("http:127.0.0.1:3000/v1/friend_requests", {
-          headers: {
-            Authorization: token,
-          },
+        const res = await axios.get(
+          "http://127.0.0.1:3000/v1/friend_requests/",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(resmy);
+        console.log(res);
+        console.log(resmy.data["user_id"]);
+        console.log(resmy.data["nickName"]);
+        console.log(res.data);
+        console.log("clear");
+        resmy.data["user_id"] && setProfile(resmy.data["user_id"]);
+        setProfile(6);
+        setEditedProfile({
+          id: resmy.data["user_id"],
+          nickName: "Taro",
         });
-        resmy.data[0] && setProfile(resmy.data[0]);
-        resmy.data[0] &&
-          setEditedProfile({
-            id: resmy.data[0].id,
-            nickName: resmy.data[0].nickName,
-          });
-        resmy.data[0] &&
-          setAskList(
-            res.data.filter((ask) => {
-              return resmy.data[0].userPro === ask.askTo;
-            })
-          );
-        setAskListFull(res.data);
+        // resmy.data["user_id"] &&
+        //   setEditedProfile({
+        //     id: resmy.data["user_id"],
+        //     nickName: resmy.data["nickName"],
+        //   });
+        // resmy.data["user_id"] &&
+        //   setAskList(
+        //     res.data.filter((ask) => {
+        //       return resmy.data["user_id"] === ask.askTo;
+        //     })
+        //   );
+        // setAskListFull(res.data);
+        console.log(profile);
+        console.log(editedProfile);
+        // console.log(askList);
       } catch {
         console.log("error");
       }
     };
-    const getProfile = async () => {
-      try {
-        const res = await axios.get("http://127.0.0.1:3000/v1/profiles/", {
-          headers: {
-            Authorization: token,
-          },
-        });
-        setProfiles(res.data);
-      } catch {
-        console.log("error");
-      }
-    };
+    // const getProfile = async () => {
+    //   try {
+    //     const res = await axios.get("http://127.0.0.1:3000/v1/profiles/", {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+    //     setProfiles(res.data);
+    //   } catch {
+    //     console.log("error");
+    //   }
+    // };
     // getInboxも今後実装
-    getMyprofile();
-    getProfile();
+    getMyprofile().then(console.log(profile)).then(console.log(editedProfile));
+
+    // getProfile();
     // getInbox();
   }, [token, profile.id]);
 
-  const editedProfile = async () => {
-    const editDate = new FormData();
+  const editProfile = async () => {
+    const editData = new FormData();
     editData.append("nickName", editedProfile.nickName);
     //cover.name && editData.append("img", cover, cover.name);
     try {
@@ -164,7 +183,7 @@ const ApiContextProvider = (props) => {
         newRequestFriend,
         editedProfile,
         changeApprovalRequest,
-        editedProfile,
+        editProfile,
         setEditedProfile)
       }
     >
