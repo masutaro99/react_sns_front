@@ -7,30 +7,26 @@ import Profile from "./Profile";
 
 const Main = () => {
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
-  // const filterProfiles = profiles.filter((prof) => {
-  //   return prof.id !== profile.id;
-  // });
-  // const listProfiles =
-  //   filterProfiles &&
-  //   filterProfiles.map((filprof) => (
-  //     <Profile
-  //       key={filprof.id}
-  //       profileData={filprof}
-  //       askData={askListFull.filter((ask) => {
-  //         return (
-  //           (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
-  //         );
-  //       })}
-  //     ></Profile>
-  //   ));
+  const filterProfiles = profiles.filter((prof) => {
+    return prof.id !== profile.id;
+  });
+  const listProfiles =
+    filterProfiles &&
+    filterProfiles.map((filprof) => (
+      <Profile
+        key={filprof.id}
+        profileData={filprof}
+        askData={askListFull.filter((ask) => {
+          return (
+            (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
+          );
+        })}
+      ></Profile>
+    ));
   return (
     <Grid container>
       <Grid item xs={4}>
-        {/* <div className="app-profiles">{listProfiles}</div> */}
-        <div className="app-profiles">
-          <h1>a</h1>
-          <h3>{profile}</h3>
-        </div>
+        <div className="app-profiles">{listProfiles}</div>
       </Grid>
       <Grid item xs={4}>
         <div className="app-details"></div>

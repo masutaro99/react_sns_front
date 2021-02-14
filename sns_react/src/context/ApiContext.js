@@ -5,13 +5,12 @@ export const ApiContext = createContext();
 
 const ApiContextProvider = (props) => {
   const token = props.cookies.get("current-token");
-  const [profile, setProfile] = useState(0);
+  const [profile, setProfile] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [editedProfile, setEditedProfile] = useState({ id: "", nickName: "" });
   const [askList, setAskList] = useState([]);
-  // askListFullには自分宛ての友達申請も表示する
   const [askListFull, setAskListFull] = useState([]);
-  // const [inbox, setInbox] = useState([]);
+  const [inbox, setInbox] = useState([]);
   const [cover, setCover] = useState([]);
 
   useEffect(() => {
@@ -31,53 +30,41 @@ const ApiContextProvider = (props) => {
             },
           }
         );
-        console.log(resmy);
-        console.log(res);
-        console.log(resmy.data["user_id"]);
-        console.log(resmy.data["nickName"]);
-        console.log(res.data);
-        console.log("clear");
         resmy.data["user_id"] && setProfile(resmy.data["user_id"]);
-        setProfile(6);
-        setEditedProfile({
-          id: resmy.data["user_id"],
-          nickName: "Taro",
-        });
-        // resmy.data["user_id"] &&
-        //   setEditedProfile({
-        //     id: resmy.data["user_id"],
-        //     nickName: resmy.data["nickName"],
-        //   });
+        resmy.data["user_id"] &&
+          setEditedProfile({
+            id: resmy.data["user_id"],
+            nickName: resmy.data["nickName"],
+          });
+        //　ここのfilterのかけ方がうまくいかない
         // resmy.data["user_id"] &&
         //   setAskList(
         //     res.data.filter((ask) => {
-        //       return resmy.data["user_id"] === ask.askTo;
+        //       //console.log(ask.askTo_id);
+        //       return ask["askTo_id"] === 2;
+        //       //return resmy.data["user_id"] === ask.askTo_id;
         //     })
         //   );
-        // setAskListFull(res.data);
-        console.log(profile);
-        console.log(editedProfile);
-        // console.log(askList);
+        setAskListFull(res.data);
       } catch {
         console.log("error");
       }
     };
-    // const getProfile = async () => {
-    //   try {
-    //     const res = await axios.get("http://127.0.0.1:3000/v1/profiles/", {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //     setProfiles(res.data);
-    //   } catch {
-    //     console.log("error");
-    //   }
-    // };
+    const getProfile = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:3000/v1/profiles/", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setProfiles(res.data);
+      } catch {
+        console.log("error");
+      }
+    };
     // getInboxも今後実装
-    getMyprofile().then(console.log(profile)).then(console.log(editedProfile));
-
-    // getProfile();
+    getMyprofile();
+    getProfile();
     // getInbox();
   }, [token, profile.id]);
 
@@ -173,8 +160,8 @@ const ApiContextProvider = (props) => {
 
   return (
     <ApiContext.Provider
-      value={
-        (profile,
+      value={{
+        profile,
         profiles,
         cover,
         setCover,
@@ -184,8 +171,8 @@ const ApiContextProvider = (props) => {
         editedProfile,
         changeApprovalRequest,
         editProfile,
-        setEditedProfile)
-      }
+        setEditedProfile,
+      }}
     >
       {props.children}
     </ApiContext.Provider>
