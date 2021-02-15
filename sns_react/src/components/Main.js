@@ -37,7 +37,7 @@ const Main = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details"></div>
+        <div className="app-details">{askList}</div>
       </Grid>
       <Grid item xs={4}>
         <h3>

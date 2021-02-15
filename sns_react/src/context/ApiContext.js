@@ -36,16 +36,14 @@ const ApiContextProvider = (props) => {
             id: resmy.data["user_id"],
             nickName: resmy.data["nickName"],
           });
-        //　ここのfilterのかけ方がうまくいかない
-        // resmy.data["user_id"] &&
-        //   setAskList(
-        //     res.data.filter((ask) => {
-        //       //console.log(ask.askTo_id);
-        //       return ask["askTo_id"] === 2;
-        //       //return resmy.data["user_id"] === ask.askTo_id;
-        //     })
-        //   );
-        setAskListFull(res.data);
+        const setdata = res.data.filter((ask) => {
+          console.log(ask["askTo_id"]);
+          return ask["askTo_id"] === resmy.data["user_id"];
+        });
+        console.log(setdata[0]["id"]);
+        resmy.data["user_id"] && setAskList([setdata[0]["askFrom_id"]]);
+        console.log(askList);
+        //setAskListFull(res.data);
       } catch {
         console.log("error");
       }
