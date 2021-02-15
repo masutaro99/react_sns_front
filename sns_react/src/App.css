@@ -1,3 +1,6 @@
+/*Google font*/
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:ital@1&display=swap");
+
 .App {
   text-align: center;
 }
@@ -97,4 +100,23 @@
   font-size: 22px;
   border: none;
   outline: none;
+}
+
+.photo {
+  background-color: transparent;
+  color: lightgray;
+  font-size: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.user {
+  background-color: transparent;
+  color: lightgray;
+  margin-left: 10px;
+  font-size: 26dpx;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
