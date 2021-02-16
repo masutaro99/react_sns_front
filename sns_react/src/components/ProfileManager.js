@@ -113,7 +113,7 @@ const ProfileManager = (props) => {
             onChange={handleInputChange()}
           />
           <hr />
-          <span>Joined at {profile}</span>
+          <span>Joined at {profile.created_at}</span>
           <hr />
           <LocationOn />
           <span>JAPAN</span>

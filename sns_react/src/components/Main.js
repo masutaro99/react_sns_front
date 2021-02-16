@@ -5,6 +5,7 @@ import { GoMail } from "react-icons/go";
 import { BsFillPeopleFill } from "react-icons/bs";
 import Profile from "./Profile";
 import ProfileManager from "./ProfileManager";
+import Ask from "./Ask";
 
 const Main = () => {
   const { profiles, profile, askList, askListFull } = useContext(ApiContext);
@@ -17,9 +18,9 @@ const Main = () => {
       <Profile
         key={filprof.id}
         profileData={filprof}
-        askData={askListFull.filter((ask) => {
+        askData={askList.filter((ask) => {
           return (
-            (filprof.userPro === ask.askFrom) | (filprof.userPro === ask.askTo)
+            (filprof.id === ask.askFrom_id) | (filprof.id === ask.askTo_id)
           );
         })}
       ></Profile>
@@ -37,7 +38,22 @@ const Main = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details">{askList}</div>
+        <div className="app-details">
+          <div className="task-list">
+            <ul>
+              {profile.user_id &&
+                askList.map((ask) => (
+                  <Ask
+                    key={ask.id}
+                    ask={ask}
+                    prof={profiles.filter((item) => {
+                      return item.user_id === ask.askFrom_id;
+                    })}
+                  />
+                ))}
+            </ul>
+          </div>
+        </div>
       </Grid>
       <Grid item xs={4}>
         <h3>

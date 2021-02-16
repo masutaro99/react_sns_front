@@ -5,7 +5,11 @@ export const ApiContext = createContext();
 
 const ApiContextProvider = (props) => {
   const token = props.cookies.get("current-token");
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({
+    id: "",
+    nickName: "",
+    created_at: "",
+  });
   const [profiles, setProfiles] = useState([]);
   const [editedProfile, setEditedProfile] = useState({ id: "", nickName: "" });
   const [askList, setAskList] = useState([]);
@@ -30,20 +34,14 @@ const ApiContextProvider = (props) => {
             },
           }
         );
-        resmy.data["user_id"] && setProfile(resmy.data["user_id"]);
-        resmy.data["user_id"] &&
-          setEditedProfile({
-            id: resmy.data["user_id"],
-            nickName: resmy.data["nickName"],
-          });
+        resmy.data["user_id"] && setProfile(resmy.data);
+        resmy.data["user_id"] && setEditedProfile(resmy.data);
         const setdata = res.data.filter((ask) => {
           //console.log(ask["askTo_id"]);
           return ask["askTo_id"] === resmy.data["user_id"];
         });
-        console.log(setdata[0]["id"]);
-        resmy.data["user_id"] && setAskList([setdata[0]["askFrom_id"]]);
-        console.log(askList);
-        //setAskListFull(res.data);
+        setAskList(setdata);
+        setAskListFull(res.data);
       } catch {
         console.log("error");
       }
@@ -108,7 +106,7 @@ const ApiContextProvider = (props) => {
   const changeApprovalRequest = async (uploadDataAsk, ask) => {
     try {
       const res = await axios.put(
-        `http:127.0.0.1:3000/v1/friend_requests/${ask.id}`,
+        `http:127.0.0.1:3000/v1/friend_requests/${ask.id}/`,
         uploadDataAsk,
         {
           headers: {
