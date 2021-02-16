@@ -42,11 +42,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileManager = () => {
+const ProfileManager = (props) => {
   const classes = useStyles();
   const {
     profile,
     editedProfile,
+    editProfile,
     setEditedProfile,
     deleteProfile,
     cover,
@@ -62,6 +63,7 @@ const ProfileManager = () => {
     const name = event.target.name;
     setEditedProfile({ ...editedProfile, [name]: value });
   };
+
   return (
     <div className={classes.profile}>
       <div className="image-wrapper">
@@ -77,13 +79,22 @@ const ProfileManager = () => {
           onChange={(event) => {
             setCover(event.target.files[0]);
             event.target.value = "";
+            // axios.post(
+            //   "http:127.0.0.1:3000/v1/profiles/upload_image/",
+            //   event.target.files[0],
+            //   {
+            //     headers: {
+            //       Authorization: token,
+            //     },
+            //   }
+            // );
           }}
         />
         <IconButton onClick={handleEditPicture}>
           <MdAddAPhoto className="photo" />
         </IconButton>
       </div>
-      <button className="user" onClick={() => editedProfile()}>
+      <button className="user" onClick={() => editProfile()}>
         <FaUserEdit />
       </button>
       <div className="profile-details">

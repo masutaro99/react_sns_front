@@ -37,7 +37,7 @@ const ApiContextProvider = (props) => {
             nickName: resmy.data["nickName"],
           });
         const setdata = res.data.filter((ask) => {
-          console.log(ask["askTo_id"]);
+          //console.log(ask["askTo_id"]);
           return ask["askTo_id"] === resmy.data["user_id"];
         });
         console.log(setdata[0]["id"]);
@@ -67,12 +67,12 @@ const ApiContextProvider = (props) => {
   }, [token, profile.id]);
 
   const editProfile = async () => {
-    const editData = new FormData();
-    editData.append("nickName", editedProfile.nickName);
-    //cover.name && editData.append("img", cover, cover.name);
+    // const editData = new FormData();
+    // editData.append("nickName", editedProfile.nickName);
+    const editData = { profile: { nickName: editedProfile.nickName } };
     try {
-      const res = await axios.put(
-        `http:127.0.0.1:3000/v1/profiles/&{profile.id}/`,
+      const res = await axios.patch(
+        `http://127.0.0.1:3000/v1/profiles/${profile}/`,
         editData,
         {
           headers: {
