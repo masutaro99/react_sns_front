@@ -28,7 +28,9 @@ const Main = () => {
   return (
     <Grid container>
       <Grid item xs={4}>
-        <div className="app-profiles">{listProfiles}</div>
+        <div className="app-profiles">
+          <div className="task-list">{listProfiles}</div>
+        </div>
       </Grid>
       <Grid item xs={4}>
         <div className="app-details">
