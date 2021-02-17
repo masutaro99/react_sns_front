@@ -66,9 +66,10 @@ const ApiContextProvider = (props) => {
   const editProfile = async () => {
     const editData = { profile: { nickName: editedProfile.nickName } };
     console.log(editData);
+    console.log(profile.user_id);
     try {
       const res = await axios.patch(
-        `http://127.0.0.1:3000/v1/profiles/${profile}/`,
+        `http://127.0.0.1:3000/v1/profiles/${profile.user_id}/`,
         editData,
         {
           headers: {

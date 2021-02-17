@@ -20,7 +20,8 @@ const Main = () => {
         profileData={filprof}
         askData={askList.filter((ask) => {
           return (
-            (filprof.id === ask.askFrom_id) | (filprof.id === ask.askTo_id)
+            (filprof.user_id === ask.askFrom_id) |
+            (filprof.user_id === ask.askTo_id)
           );
         })}
       ></Profile>

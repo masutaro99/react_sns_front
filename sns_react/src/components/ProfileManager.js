@@ -49,7 +49,6 @@ const ProfileManager = (props) => {
     editedProfile,
     editProfile,
     setEditedProfile,
-    deleteProfile,
     cover,
     setCover,
   } = useContext(ApiContext);
@@ -113,7 +112,7 @@ const ProfileManager = (props) => {
             onChange={handleInputChange()}
           />
           <hr />
-          <span>Joined at {profile.created_at}</span>
+          <span>Joined at {profile.created_at.slice(0, 10)}</span>
           <hr />
           <LocationOn />
           <span>JAPAN</span>
