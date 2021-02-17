@@ -6,6 +6,7 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import format from "date-fns/format";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -17,8 +18,14 @@ const Profile = ({ profileData, askData }) => {
   const { newRequestFriend, profile } = useContext(ApiContext);
 
   const newRequest = () => {
-    const askUploadData = new FormData();
-    askUploadData.append("askTo", profileData.userPro);
+    const askUploadData = {
+      friendrequest: {
+        askTo_id: profileData.user_id,
+        askFrom_id: profile.user_id,
+        approved: false,
+      },
+    };
+    console.log(askUploadData);
     newRequestFriend(askUploadData);
   };
   return (

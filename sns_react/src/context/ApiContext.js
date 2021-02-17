@@ -37,7 +37,6 @@ const ApiContextProvider = (props) => {
         resmy.data["user_id"] && setProfile(resmy.data);
         resmy.data["user_id"] && setEditedProfile(resmy.data);
         const setdata = res.data.filter((ask) => {
-          //console.log(ask["askTo_id"]);
           return ask["askTo_id"] === resmy.data["user_id"];
         });
         setAskList(setdata);
@@ -65,9 +64,8 @@ const ApiContextProvider = (props) => {
   }, [token, profile.id]);
 
   const editProfile = async () => {
-    // const editData = new FormData();
-    // editData.append("nickName", editedProfile.nickName);
     const editData = { profile: { nickName: editedProfile.nickName } };
+    console.log(editData);
     try {
       const res = await axios.patch(
         `http://127.0.0.1:3000/v1/profiles/${profile}/`,
@@ -88,7 +86,7 @@ const ApiContextProvider = (props) => {
   const newRequestFriend = async (askData) => {
     try {
       const res = await axios.post(
-        `http:127.0.0.1:3000/v1/friend_requests/`,
+        `http://127.0.0.1:3000/v1/friend_requests/`,
         askData,
         {
           headers: {
@@ -105,8 +103,10 @@ const ApiContextProvider = (props) => {
 
   const changeApprovalRequest = async (uploadDataAsk, ask) => {
     try {
+      console.log(uploadDataAsk);
+      console.log(ask.id);
       const res = await axios.put(
-        `http:127.0.0.1:3000/v1/friend_requests/${ask.id}/`,
+        `http://127.0.0.1:3000/v1/friend_requests/${ask.id}/`,
         uploadDataAsk,
         {
           headers: {
@@ -115,40 +115,40 @@ const ApiContextProvider = (props) => {
           },
         }
       );
-      setAskList(askList.map((item) => (item.id === ask.id ? res.data : item)));
+      //setAskList(askList.map((item) => (item.id === ask.id ? res.data : item)));
 
-      const newDataAsk = new FormData();
-      newDataAsk.append("askTo", ask.askFrom);
-      newDataAsk.append("approved", true);
-      const newDataAskPut = new FormData();
-      newDataAskPut.append("askTo", ask.askFrom);
-      newDataAskPut.append("askFrom", ask.askTo);
-      newDataAskPut.append("approved", true);
-      // 出す予定の友達申請の逆方向の申請があれば取得する
-      const resp = askListFull.filter((item) => {
-        return item.askFrom === profile.userPro && item.askTo === ask.askFrom;
-      });
-      !resp[0]
-        ? await axios.post(
-            `http:127.0.0.1:3000/v1/friend_requests/`,
-            newDataAsk,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: token,
-              },
-            }
-          )
-        : await axios.put(
-            `http:127.0.0.1:3000/v1/friend_requests/${resp[0]}`,
-            newDataAskPut,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: token,
-              },
-            }
-          );
+      // const newDataAsk = new FormData();
+      // newDataAsk.append("askTo", ask.askFrom);
+      // newDataAsk.append("approved", true);
+      // const newDataAskPut = new FormData();
+      // newDataAskPut.append("askTo", ask.askFrom);
+      // newDataAskPut.append("askFrom", ask.askTo);
+      // newDataAskPut.append("approved", true);
+      // // 出す予定の友達申請の逆方向の申請があれば取得する
+      // const resp = askListFull.filter((item) => {
+      //   return item.askFrom === profile.userPro && item.askTo === ask.askFrom;
+      // });
+      // !resp[0]
+      //   ? await axios.post(
+      //       `http:127.0.0.1:3000/v1/friend_requests/`,
+      //       newDataAsk,
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: token,
+      //         },
+      //       }
+      //     )
+      //   : await axios.put(
+      //       `http:127.0.0.1:3000/v1/friend_requests/${resp[0]}`,
+      //       newDataAskPut,
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: token,
+      //         },
+      //       }
+      //     );
     } catch {
       console.log("error");
     }

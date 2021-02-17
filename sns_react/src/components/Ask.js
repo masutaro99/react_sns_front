@@ -39,15 +39,13 @@ const Ask = ({ ask, prof }) => {
   };
   const sendDM = () => {
     const uploadDM = new FormData();
-    uploadDM.append("receiver", ask.askFrom);
+    uploadDM.append("receiver", ask.askFrom_id);
     uploadDM.append("message", text);
     sendDMCont(uploadDM);
     setModalIsOpen(false);
   };
   const changeApproval = () => {
-    const uploadDataAsk = new FormData();
-    uploadDataAsk.append("askTo", ask.askTo_id);
-    uploadDataAsk.append("approved", true);
+    const uploadDataAsk = { friendrequest: { approved: "true" } };
     changeApprovalRequest(uploadDataAsk, ask);
   };
 
@@ -69,7 +67,6 @@ const Ask = ({ ask, prof }) => {
           <RiMailAddLine />
         </button>
       )}
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}

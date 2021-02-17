@@ -275,10 +275,6 @@ const Login = (props) => {
           <span onClick={() => toggleView()} className={classes.span}>
             {state.isLoginView ? "Create Account" : "Back to login ?"}
           </span>
-          <h1>email:{state.credentialsLog.email}</h1>
-          <h1>password:{state.credentialsLog.password}</h1>
-          <h1>email:{state.credentialsReg.email}</h1>
-          <h1>password:{state.credentialsReg.password}</h1>
         </div>
       </form>
     </Container>

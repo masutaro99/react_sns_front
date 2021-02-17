@@ -46,6 +46,7 @@ const Main = () => {
                   <Ask
                     key={ask.id}
                     ask={ask}
+                    // friend requestを送ってきた人のprofile情報を取得
                     prof={profiles.filter((item) => {
                       return item.user_id === ask.askFrom_id;
                     })}
