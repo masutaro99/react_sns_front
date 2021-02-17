@@ -35,7 +35,9 @@ const Profile = ({ profileData, askData }) => {
         image="http://127.0.0.1:3000/ema.png"
       />
       <CardContent sytle={{ padding: 5 }}>
-        <Typography variant="h6">{profileData.nickName}</Typography>
+        <Typography variant="h6">
+          {profileData.nickName ? profileData.nickName : "Unknown"}
+        </Typography>
         <Typography>{profileData.created_at}</Typography>
         {!askData[0] ? (
           <Button

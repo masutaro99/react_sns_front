@@ -6,15 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import { CookiesProvider } from "react-cookie";
-import Dashboard from "./components/Dashboard";
 
 const routing = (
   <React.StrictMode>
     <BrowserRouter>
       <CookiesProvider>
         <Route exact path="/login" component={Login} />
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/profiles" component={App} />
+        <Route exact path="/" component={App} />
       </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>
