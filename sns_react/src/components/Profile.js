@@ -37,7 +37,9 @@ const Profile = ({ profileData, askData }) => {
         <Typography variant="h6">
           {profileData.nickName ? profileData.nickName : "Unknown"}
         </Typography>
-        <Typography>{profileData.created_at.slice(0, 10)}</Typography>
+        <Typography>
+          <span>Joined at{profileData.created_at.slice(0, 10)}</span>
+        </Typography>
         {!askData[0] ? (
           <Button
             size="small"
